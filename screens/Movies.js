@@ -3,9 +3,9 @@ import { View, Text, Button } from "react-native";
 
 export default ({ navigation }) => (
   <View>
-    <Text>Home</Text>
+    <Text>Movies</Text>
     <Button
-      title="Go to Detail"
+      title="Movie"
       onPress={() => navigation.navigate("Detail")}
     ></Button>
   </View>

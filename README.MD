@@ -50,3 +50,10 @@ App.js의 `<NavigationContainer>`
 
 - Button은 'title'값으로 화면에 표시됨.
 - onPress={() => navigation.navigate(스크린 name)
+
+# 2.4 Tabs Navigation
+
+> npm i @react-navigation/bottom-tabs
+
+이번 수업에서 코딩한 바를 해석해보자면, 2개의 Stack이 있고, 그 중 하나에 Tabs가 들어가있는 것이다. 대등한 관계로 착각 금지. 그래서 다른 스택인 Detail로 넘어가면 bottom tabs는 사라진다.  
+그 외에는 위에서 설명한 것들이 그대로 적용돼 있다.
