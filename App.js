@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Text, Image } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 import { AppLoading } from "expo";
 import { Asset } from "expo-asset";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import * as Font from "expo-font";
+import Stack from "./navigation/Stack";
 
 const cacheImages = (images) =>
   images.map((img) => {
@@ -24,27 +26,13 @@ export default function App() {
       require("./assets/splash.png"),
     ]);
     const fonts = cacheFonts([Ionicons.font, FontAwesome.font]);
-    console.log(fonts);
-    // expected output:
-    // Array [
-    //   Promise {
-    //     "_40": 0,
-    //     "_55": null,
-    //     "_65": 0,
-    //     "_72": null,
-    //   },
-    //   Promise {
-    //     "_40": 0,
-    //     "_55": null,
-    //     "_65": 0,
-    //     "_72": null,
-    //   },
-    // ]
     return Promise.all([...images, ...fonts]);
   };
   const onFinish = () => setIsReady(true);
   return isReady ? (
-    <Text>Ready!</Text>
+    <NavigationContainer>
+      <Stack></Stack>
+    </NavigationContainer>
   ) : (
     <AppLoading
       startAsync={loadAssets}

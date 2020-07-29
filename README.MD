@@ -29,3 +29,24 @@ Documentaion을 보면 `startAsync`(function), `onFinish`(function), `onError`(f
 ### `return Promise.all([...images, ...fonts]);`
 
 Documentaion에 보면 AppLoading의 startAsync 함수는 Promise를 리턴한다고 되어있기 때문에 굳이 async-await를 써 줄 필요가 없다.
+
+# 2.3 Stack Navigation
+
+> npm install @react-navigation/native
+
+> expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+
+> npm i @react-navigation/stack
+
+App.js의 `<NavigationContainer>`  
+-> Stack.js의 `<createStackNavigator().Navigator>`  
+-> Stack.js의 `<createStackNavigator().screen>`
+
+- Navigator로부터 {navigation}을 보장받음. 마치 prop처럼.
+- 'name'값이 필요. 이게 화면 상단의 제목으로 표시된다.
+- 'component'로 각 component에 연결.
+
+-> 각각의 `Component <View>`
+
+- Button은 'title'값으로 화면에 표시됨.
+- onPress={() => navigation.navigate(스크린 name)
