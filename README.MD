@@ -17,3 +17,15 @@ Documentaion을 보면 `startAsync`(function), `onFinish`(function), `onError`(f
 ### `return Asset.fromModule(img).downloadAsync();`
 
 출처는 엑스포. `npm i expo-asset`으로 설치하고 Asset을 가져온다. 이미지가 저장되어 있을 때 사용한다. `Promise`를 리턴한다.
+
+# 2.2 cacheFonts
+
+### `import { Ionicons, FontAwesome } from "@expo/vector-icons";`
+
+### `import * as Font from "expo-font";`
+
+아이콘 - 폰트. 아이콘의 preload는 Font에서 담당한다. 그리고 `Font.loadAsync(font)` 역시 `Promise`를 리턴한다.
+
+### `return Promise.all([...images, ...fonts]);`
+
+Documentaion에 보면 AppLoading의 startAsync 함수는 Promise를 리턴한다고 되어있기 때문에 굳이 async-await를 써 줄 필요가 없다.
