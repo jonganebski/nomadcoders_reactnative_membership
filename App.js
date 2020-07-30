@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, Image } from "react-native";
+import { Text, Image, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppLoading } from "expo";
 import { Asset } from "expo-asset";
@@ -30,9 +30,12 @@ export default function App() {
   };
   const onFinish = () => setIsReady(true);
   return isReady ? (
-    <NavigationContainer>
-      <Stack></Stack>
-    </NavigationContainer>
+    <>
+      <NavigationContainer>
+        <Stack></Stack>
+      </NavigationContainer>
+      <StatusBar barStyle="light-content"></StatusBar>
+    </>
   ) : (
     <AppLoading
       startAsync={loadAssets}
