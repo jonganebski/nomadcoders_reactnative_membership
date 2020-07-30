@@ -57,3 +57,14 @@ App.js의 `<NavigationContainer>`
 
 이번 수업에서 코딩한 바를 해석해보자면, 2개의 Stack이 있고, 그 중 하나에 Tabs가 들어가있는 것이다. 대등한 관계로 착각 금지. 그래서 다른 스택인 Detail로 넘어가면 bottom tabs는 사라진다.  
 그 외에는 위에서 설명한 것들이 그대로 적용돼 있다.
+
+# 2.5, 2.6 Updating Header
+(이해를 위해 object destructuring 안 씀)
+### `useLayoutEffect(()=>{},[])`
+기본적으로 useEffect와 같지만, 차이점은 useLayoutEffect는 모든 레이아웃 변경이 끝난 뒤에 작동한다는 점이다.  
+### `props.navigation.setOptions({ title: 타이틀 이름 })`
+2.3에서 언급했던 바와 같이, StackNavigator는 각 Screen에서 `props.navigation`을 보장한다. 그리고 `props.route`도 보장한다.  
+그런데 여기서 TabsNavigator는 또한 StackNavigator의 Screen이기도 하다. 그러므로 TabsNavigator는 하나의 Screen으로서 이 props를 받는다. 
+하지만 이 props를 통해서 Screen이 이 상위에 있는 Navigator를 변화시킬수도 있다.(일방향이 아닌 양방향이 가능) `props.navigation.setOptions()`에는 네비게이터의 타이틀을 바꿀 수 있는 기능이 내제돼 있다. 
+### `props.route?.state?.routeNames[props.route.state.index] ?? "Movies"`
+단, 처음 접속시에는 props.route.state가 없기 때문에 에러를 발생시킨다. 그래서 optional chaining과 ??를 사용해서 첫 접속시의 타이틀을 "Movies"로 설정했다.
