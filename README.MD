@@ -96,3 +96,36 @@ createStackNavigator().Navigator와 View는 스타일링에 차이가 있다. �
 헤더의 제목 색 뿐만 아니라 뒤로 돌아가는 버튼까지 채색해준다. 그래서 헤더 제목 섹깔만 바꿀게 아니라면 이것을 선택하는 것이 좋다. 
 ### `headerBackTitleVisible: false`
 헤더에 왼쪽에 `< Detail`이라고 뜨는걸 `<` 이렇게 바꾼다. 
+
+# 2.8 Adding the Icons
+이번 수업의 코드들은 모두 `<createBottomTabNavigator().Navigator ....>` 안에 들어간다. 
+```
+screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused }) => {
+        ---iconName 정하는 과정---
+          return (
+            <Ionicons
+              name={iconName}
+              color={focused ? "white" : "grey"}
+              size={25}
+            ></Ionicons>
+          );
+        },
+      })}
+      tabBarOptions={{
+        showLabel: false,
+        style: {
+          backgroundColor: "black",
+          borderTopColor: "black",
+        },
+      }}
+```
+screenOptions가 함수가 됐다고해서 어렵게 볼 필요가 없다. 보면 결국 소괄호를 써서 implicit return으로 하나의 객체를 리턴하기 때문에 결국엔 그냥 screenOptions={....}가 되는 것일 뿐이다. 
+### `Platform.OS === "ios" ? "ios-" : "md-";`
+Platform.OS는 "ios"나 "android" 둘 중 하나를 출력한다. Documentation을 보면 Platform.Select같은 더 여러가지 기능들이 소개돼 있다. 
+### `tabBarIcon({focused: boolean, color: string, size: number})`
+여기서는 focused만 필요해서 나머지는 쓰지 않음. React.Node를 리턴하는 함수여야 하기 때문에 리턴값을 <Ionicons .../>로 쓴 것. 이 안에 들어가는 name, color, size 등의 prop들은 Ionicons 문서에 잘 나와있음.
+### `showLabel: false`
+tabBarOptions의 이 항목을 false로 해서 "Movies", "TVs", "Search", "Favorites"같은 Tabs.Screen 의 name들이 탭바에 표시되지 않게 한다. 왜냐하면 그 자리를 아이콘으로 대신하기 위해서다. 
+### `borderTopColor: "black"`
+헤더에서는 보더칼라로 구분선이 지워지지 않아서 shadowColor: "black"을 썼었는데, 탭바에서는 이걸로 구분선이 잘 지워졌다. 
