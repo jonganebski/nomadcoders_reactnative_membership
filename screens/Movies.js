@@ -1,12 +1,32 @@
-import React from "react";
-import { View, Text, Button } from "react-native";
+import React, { useEffect } from "react";
+import { View, Text } from "react-native";
+import { movieApi } from "../api";
 
-export default ({ navigation }) => (
-  <View style={{ flex: 1, backgroundColor: "black" }}>
-    <Text>Movies</Text>
-    <Button
-      title="Movie"
-      onPress={() => navigation.navigate("Detail")}
-    ></Button>
-  </View>
-);
+export default () => {
+  // const [nowPlaying, setNowPlaying] = useState({
+  //   movies: [],
+  //   error: null,
+  // });
+  const getData = async () => {
+    // try {
+    //   const { data: { results } = {} } = await movieApi.nowPlaying();
+    //   setNowPlaying({
+    //     movies: results,
+    //     error: null,
+    //   });
+    // } catch (error) {
+    //   setNowPlaying({
+    //     error,
+    //   });
+    // }
+    const [nowPlaying, nowPlayingError] = await movieApi.nowPlaying();
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+  return (
+    <View style={{ flex: 1, backgroundColor: "black" }}>
+      <Text>Movies</Text>
+    </View>
+  );
+};

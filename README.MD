@@ -166,3 +166,7 @@ tabBarOptions의 이 항목을 false로 해서 "Movies", "TVs", "Search", "Favor
 
 - Axios의 사용.
 - api 어떤 부분을 사용할지 정해놓고 큰 그림을 먼저 그리는 것이 좋다.
+
+# 3.2 Divide and Conquer
+
+중복이 발생할 수 있는 `try{}catch{}`과정을 하나의 함수로 만들어서 재활용하는 방안.
