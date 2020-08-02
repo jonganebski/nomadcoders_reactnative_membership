@@ -170,3 +170,22 @@ tabBarOptions의 이 항목을 false로 해서 "Movies", "TVs", "Search", "Favor
 # 3.2 Divide and Conquer
 
 중복이 발생할 수 있는 `try{}catch{}`과정을 하나의 함수로 만들어서 재활용하는 방안.
+
+# 3.3 Bulletproof getAnything
+
+```
+const [nowPlaying, setNowPlaying] = useState({
+  movies: [],
+  error: null,
+})
+...
+  setNowPlaying({
+    movies: results,
+    error: null,
+  })
+```
+
+이거를 nowPlaying, popular, upcoming 3번을 반복해서 쓰면 코드 길이가 길어지는 것은 물론이고, 무엇보다 `setNowPlaying()`등이 3번 반복돼서 렌더링이 3번 일어난다는 것이다.  
+**렌더링은 한 번이 이상적**이기 때문에 하나의 큰 state를 만들어서 처리하기로 한다.
+
+api.js에서 data를 추가한 이유는 `data: { result }`가 없이 data만 오는 url도 있기 때문이다. (영화나 쇼를 아이디로 단독으로 불러오는 경우)
