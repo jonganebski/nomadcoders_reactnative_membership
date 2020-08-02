@@ -225,3 +225,13 @@ react-native-web-swiper에서 불러 온 이 컴포넌트는 그 내부의 컴�
 ### `{...movies}`
 
 MoviesContainer.js에서 프리젠터로 보내는 프롭을 간단하게 보내는 방법. 이론적으로는 알고 있지만 막상 쓸 생각을 잘 하지 못한다.
+
+# 4.2 Slider Background
+
+> npm install prop-types
+
+```
+Failed prop type: The prop 'backgroundImage' is marked as required in 'Slide', but its value is 'null'.
+```
+
+이 에러가 왜 생기는지 모르겠다... 작동은 일단 된다.

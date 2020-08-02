@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
 import Swiper from "react-native-web-swiper";
-import { Dimensions, ActivityIndicator } from "react-native";
-
-const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
+import { ActivityIndicator } from "react-native";
+import Slide from "../../components/Movies/Slider";
 
 const Container = styled.View`
   flex: 1;
@@ -11,33 +10,26 @@ const Container = styled.View`
   background-color: black;
 `;
 
-const Header = styled.View`
-  width: 100%;
-  height: ${screenHeight / 3}px;
-`;
-
-const Section = styled.View`
-  background-color: red;
-  height: 100%;
-`;
-
-const Text = styled.Text``;
-
 const MoviesPresenter = ({ isLoading, nowPlaying }) => {
   return (
     <Container>
       {isLoading ? (
         <ActivityIndicator color="white" size="small"></ActivityIndicator>
       ) : (
-        <Header>
+        <>
           <Swiper controlsEnabled={false} loop timeout={3}>
             {nowPlaying.map((movie) => (
-              <Section key={movie.id}>
-                <Text>{movie.original_title}</Text>
-              </Section>
+              <Slide
+                key={movie.id}
+                id={movie.id}
+                title={movie.original_language}
+                backgroundImage={movie.backdrop_path}
+                votes={movie.vote_average}
+                overview={movie.overview}
+              ></Slide>
             ))}
           </Swiper>
-        </Header>
+        </>
       )}
     </Container>
   );
