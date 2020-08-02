@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import Swiper from "react-native-web-swiper";
 import { ActivityIndicator, Dimensions } from "react-native";
-import Slide from "../../components/Movies/Slider";
+import Slide from "../../components/Movies/Slide";
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get("screen");
 
@@ -31,6 +31,7 @@ const MoviesPresenter = ({ isLoading, nowPlaying }) => {
                 id={movie.id}
                 title={movie.original_title}
                 backgroundImage={movie.backdrop_path}
+                poster={movie.poster_path}
                 votes={movie.vote_average}
                 overview={movie.overview}
               ></Slide>
