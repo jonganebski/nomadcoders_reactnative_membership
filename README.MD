@@ -189,3 +189,39 @@ const [nowPlaying, setNowPlaying] = useState({
 **렌더링은 한 번이 이상적**이기 때문에 하나의 큰 state를 만들어서 처리하기로 한다.
 
 api.js에서 data를 추가한 이유는 `data: { result }`가 없이 data만 오는 url도 있기 때문이다. (영화나 쇼를 아이디로 단독으로 불러오는 경우)
+
+# 4.0, 4.1 Home Slider
+
+> npm i react-native-web-swiper
+
+그냥 react-native-swiper는 웹에서는 통하지 않는다.
+
+> npm install styled-components
+
+---
+
+바뀐게 많아보이지만 Movies폴더를 만들고 Container, Presenter방식으로 바꿔서 그렇다. `MoviesPresenter.js`를 위주로 살펴보면 된다.
+
+### `import styled from "styled-components/native";`
+
+리액트 네이티브에서 문제없이 쓰려면 뒤에 네이티브를 붙인 styled-components/native를 쓰는 것이 좋다.
+
+### `const { width, height } = Dimensions.get("screen");`
+
+리액트 네이티브에서 제공하는 Dimensions.get은 그 스크린의 사이즈를 바로 불러올 수 있게 해준다.
+
+### `<ActivityIndicator />`
+
+리액트 네이티브에서 제공하는 ActivityIndicator는 흔히 앱이 로딩 중일 때 나오는 동그란 로딩 애니매이션이다. 여기에 옵션을 몇가지 붙이는 것이 가능하다.
+
+### `<Swiper>...</Swiper>`
+
+react-native-web-swiper에서 불러 온 이 컴포넌트는 그 내부의 컴포넌트들을 스와이프 가능하게 만든다. 옵션 설정이 가능하다.
+
+- `controlsEnabled={false}`: 기본적으로는 스와이프 화면 아래에 previous, next 등 문구가 뜨는데, 이를 제거한다.
+- `loop`: 자동 스와이프
+- `timeout={3}`: 자동 스와이프를 3초마다 실행. 밀리세컨즈가 아니라 초 단위임.
+
+### `{...movies}`
+
+MoviesContainer.js에서 프리젠터로 보내는 프롭을 간단하게 보내는 방법. 이론적으로는 알고 있지만 막상 쓸 생각을 잘 하지 못한다.
