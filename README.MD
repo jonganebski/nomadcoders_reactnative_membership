@@ -59,46 +59,69 @@ App.js의 `<NavigationContainer>`
 그 외에는 위에서 설명한 것들이 그대로 적용돼 있다.
 
 # 2.5, 2.6 Updating Header
+
 (이해를 위해 object destructuring 안 씀)
+
 ### `useLayoutEffect(()=>{},[])`
-기본적으로 useEffect와 같지만, 차이점은 useLayoutEffect는 모든 레이아웃 변경이 끝난 뒤에 작동한다는 점이다.  
+
+기본적으로 useEffect와 같지만, 차이점은 useLayoutEffect는 모든 레이아웃 변경이 끝난 뒤에 작동한다는 점이다.
+
 ### `props.navigation.setOptions({ title: 타이틀 이름 })`
+
 2.3에서 언급했던 바와 같이, StackNavigator는 각 Screen에서 `props.navigation`을 보장한다. 그리고 `props.route`도 보장한다.  
-그런데 여기서 TabsNavigator는 또한 StackNavigator의 Screen이기도 하다. 그러므로 TabsNavigator는 하나의 Screen으로서 이 props를 받는다. 
-하지만 이 props를 통해서 Screen이 이 상위에 있는 Navigator를 변화시킬수도 있다.(일방향이 아닌 양방향이 가능) `props.navigation.setOptions()`에는 네비게이터의 타이틀을 바꿀 수 있는 기능이 내제돼 있다. 
+그런데 여기서 TabsNavigator는 또한 StackNavigator의 Screen이기도 하다. 그러므로 TabsNavigator는 하나의 Screen으로서 이 props를 받는다.
+하지만 이 props를 통해서 Screen이 이 상위에 있는 Navigator를 변화시킬수도 있다.(일방향이 아닌 양방향이 가능) `props.navigation.setOptions()`에는 네비게이터의 타이틀을 바꿀 수 있는 기능이 내제돼 있다.
+
 ### `props.route?.state?.routeNames[props.route.state.index] ?? "Movies"`
+
 단, 처음 접속시에는 props.route.state가 없기 때문에 에러를 발생시킨다. 그래서 optional chaining과 ??를 사용해서 첫 접속시의 타이틀을 "Movies"로 설정했다.
+
 # 2.7 Styling Nav
+
 ### `<StatusBar barStyle="light-content"></StatusBar>`
-react-native에서 import한 StatusBar 사용. expo-status-bar에도 있는데 auto-import시 이쪽으로 되는 경우가 종종 있다. 
+
+react-native에서 import한 StatusBar 사용. expo-status-bar에도 있는데 auto-import시 이쪽으로 되는 경우가 종종 있다.
+
 ```
-<Stack.Navigator  
-    mode="modal"  
-    screenOptions={{  
-      headerStyle: {  
-        backgroundColor: "black",  
-        shadowColor: "black",  
-      },  
-      headerTintColor: "white",  
+<Stack.Navigator
+    mode="modal"
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: "black",
+        shadowColor: "black",
+      },
+      headerTintColor: "white",
       headerBackTitleVisible: false,
     }}
 >
 ```
+
 ```
 <View style={{ flex: 1, backgroundColor: "black" }}>
 ```
-createStackNavigator().Navigator와 View는 스타일링에 차이가 있다. 네비게이터에서는 여러 옵션을 다는 것처럼 설정하고, 뷰에서는 style={{}}을 쓴다. 
+
+createStackNavigator().Navigator와 View는 스타일링에 차이가 있다. 네비게이터에서는 여러 옵션을 다는 것처럼 설정하고, 뷰에서는 style={{}}을 쓴다.
+
 ### `mode="modal"`
-스택 화면을 넘길 때 좌우가 아닌 위아래 방향으로 넘어간다. 
+
+스택 화면을 넘길 때 좌우가 아닌 위아래 방향으로 넘어간다.
+
 ### `shadowColor: "black"`
-헤더와 스크린의 색을 검은색으로 해도 하얀 구분선이 보이는데, 이를 없애줌. 
+
+헤더와 스크린의 색을 검은색으로 해도 하얀 구분선이 보이는데, 이를 없애줌.
+
 ### `headerTintColor: "white"`
-헤더의 제목 색 뿐만 아니라 뒤로 돌아가는 버튼까지 채색해준다. 그래서 헤더 제목 섹깔만 바꿀게 아니라면 이것을 선택하는 것이 좋다. 
+
+헤더의 제목 색 뿐만 아니라 뒤로 돌아가는 버튼까지 채색해준다. 그래서 헤더 제목 섹깔만 바꿀게 아니라면 이것을 선택하는 것이 좋다.
+
 ### `headerBackTitleVisible: false`
-헤더에 왼쪽에 `< Detail`이라고 뜨는걸 `<` 이렇게 바꾼다. 
+
+헤더에 왼쪽에 `< Detail`이라고 뜨는걸 `<` 이렇게 바꾼다.
 
 # 2.8 Adding the Icons
-이번 수업의 코드들은 모두 `<createBottomTabNavigator().Navigator ....>` 안에 들어간다. 
+
+이번 수업의 코드들은 모두 `<createBottomTabNavigator().Navigator ....>` 안에 들어간다.
+
 ```
 screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
@@ -120,12 +143,26 @@ screenOptions={({ route }) => ({
         },
       }}
 ```
-screenOptions가 함수가 됐다고해서 어렵게 볼 필요가 없다. 보면 결국 소괄호를 써서 implicit return으로 하나의 객체를 리턴하기 때문에 결국엔 그냥 screenOptions={....}가 되는 것일 뿐이다. 
+
+screenOptions가 함수가 됐다고해서 어렵게 볼 필요가 없다. 보면 결국 소괄호를 써서 implicit return으로 하나의 객체를 리턴하기 때문에 결국엔 그냥 screenOptions={....}가 되는 것일 뿐이다.
+
 ### `Platform.OS === "ios" ? "ios-" : "md-";`
-Platform.OS는 "ios"나 "android" 둘 중 하나를 출력한다. Documentation을 보면 Platform.Select같은 더 여러가지 기능들이 소개돼 있다. 
+
+Platform.OS는 "ios"나 "android" 둘 중 하나를 출력한다. Documentation을 보면 Platform.Select같은 더 여러가지 기능들이 소개돼 있다.
+
 ### `tabBarIcon({focused: boolean, color: string, size: number})`
+
 여기서는 focused만 필요해서 나머지는 쓰지 않음. React.Node를 리턴하는 함수여야 하기 때문에 리턴값을 <Ionicons .../>로 쓴 것. 이 안에 들어가는 name, color, size 등의 prop들은 Ionicons 문서에 잘 나와있음.
+
 ### `showLabel: false`
-tabBarOptions의 이 항목을 false로 해서 "Movies", "TVs", "Search", "Favorites"같은 Tabs.Screen 의 name들이 탭바에 표시되지 않게 한다. 왜냐하면 그 자리를 아이콘으로 대신하기 위해서다. 
+
+tabBarOptions의 이 항목을 false로 해서 "Movies", "TVs", "Search", "Favorites"같은 Tabs.Screen 의 name들이 탭바에 표시되지 않게 한다. 왜냐하면 그 자리를 아이콘으로 대신하기 위해서다.
+
 ### `borderTopColor: "black"`
-헤더에서는 보더칼라로 구분선이 지워지지 않아서 shadowColor: "black"을 썼었는데, 탭바에서는 이걸로 구분선이 잘 지워졌다. 
+
+헤더에서는 보더칼라로 구분선이 지워지지 않아서 shadowColor: "black"을 썼었는데, 탭바에서는 이걸로 구분선이 잘 지워졌다.
+
+# 3.0, 3.1 API Layer
+
+- Axios의 사용.
+- api 어떤 부분을 사용할지 정해놓고 큰 그림을 먼저 그리는 것이 좋다.
