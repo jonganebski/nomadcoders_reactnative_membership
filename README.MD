@@ -291,3 +291,11 @@ Dimensions.get("window");로 받아오는 WIDTH를 쓰면 웹환경에서 창 �
 - 보이다시피 locale, options 둘 다 선택적으로 기입할 수 있는 사항이다.
 - locale(o), options(x) 인 경우 일단 모두 "numeric"인 것으로 간주하는게 기본이며, 로케일에 있는 지역에 따라 그 지역의 년, 월, 일 표기 순서를 따라 표시한다. 12/19/2020, 19/12/2020, 2020.12.19 등.
 - 여기서는 쓰지 않았지만 weekday(요일표시!), timeZone, timeZoneName 등 여러 옵션 사항이 더 있다.
+
+# 5.0 TV Container Presenter
+
+`ScrollContainer.js`를 만들어서 Movies와 TV Shows Presenter에서 중복되는 ScrollView를 따로 분리했다.
+
+- `children` prop을 이용한다. 예전에도 언급했듯이 이는 자동적으로 주어지는 프롭이기 때문에 프리젠터에서 프롭으로 넘길 필요는 없다.
+
+`Tabs.js`에서 TV Shows 스크린을 맨 위로 옮겼는데, 이 스크린이 제일 먼저 위치하게 해서 개발하는 도중에 바로바로 확인 가능하도록 한 일시적인 조치다.

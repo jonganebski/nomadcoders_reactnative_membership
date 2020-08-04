@@ -23,7 +23,7 @@ export default (props) => {
           let iconName = Platform.OS === "ios" ? "ios-" : "md-";
           if (props.route.name === "Movies") {
             iconName += "film";
-          } else if (props.route.name === "TVs") {
+          } else if (props.route.name === "TV Shows") {
             iconName += "tv";
           } else if (props.route.name === "Search") {
             iconName += "search";
@@ -47,8 +47,8 @@ export default (props) => {
         },
       }}
     >
+      <Tabs.Screen name="TV Shows" component={TVs}></Tabs.Screen>
       <Tabs.Screen name="Movies" component={Movies}></Tabs.Screen>
-      <Tabs.Screen name="TVs" component={TVs}></Tabs.Screen>
       <Tabs.Screen name="Search" component={Search}></Tabs.Screen>
       <Tabs.Screen name="Discovery" component={Favs}></Tabs.Screen>
     </Tabs.Navigator>
