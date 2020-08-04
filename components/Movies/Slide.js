@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import PropTypes from "prop-types";
 import { apiImage } from "../../api";
 import Poster from "../Poster";
+import Votes from "../Votes";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Container = styled.View`
@@ -36,12 +37,7 @@ const Title = styled.Text`
   margin-bottom: 10px;
 `;
 
-const Votes = styled.Text`
-  color: rgb(220, 220, 220);
-  font-size: 12px;
-  font-weight: 500;
-  margin-bottom: 7px;
-`;
+const VotesContainer = styled.Text``;
 
 const Overview = styled.Text`
   color: rgb(220, 220, 220);
@@ -69,7 +65,9 @@ const Slide = ({ id, title, backgroundImage, poster, votes, overview }) => (
         <Title>
           {title?.length > 40 ? `${title.substring(0, 40)}...` : title}
         </Title>
-        <Votes>⭐{votes} / 10</Votes>
+        <VotesContainer>
+          <Votes votes={votes}></Votes>
+        </VotesContainer>
         <Overview>{overview?.substring(0, 110)}...</Overview>
         <TouchableOpacity>
           <Button>
