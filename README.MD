@@ -305,3 +305,21 @@ Dimensions.get("window");로 받아오는 WIDTH를 쓰면 웹환경에서 창 �
 ### api.js 오타 수정
 
 ### `HorizontalSlide.js`를 만들어서 코드 재활용
+
+# 6.0 Search Input 
+
+### `import { TextInput } from "react-native"`
+
+여기서는 styled-component를 써서 임포트하지 않았지만, 웹에서의 input태그가 리액트 네이티브에서는 TextInput임을 기억할 것. 
+
+```
+<TextInput
+    placeholder={placeholder}
+    value={value}
+    onChangeText={onChange}
+    onSubmitEditing={onSubmit}
+    returnKeyType={"search"}
+  ></TextInput>
+```
+TextInput에는 굉장히 많은 prop들이 들어갈 수 있다 (Documentation 참고). 여기서 특이할 점은 위에서도 잘 나와있듯이 `onChangeText`와 `onSubmitEditing`이 각각 onChange와 onSubmit의 자리를 대신한다는 것이다.  
+`returnKeyType`은 스마트폰의 키보드에서 입력키가 있는 자리에 어떤 키를 표시할 것인지 정할 수 있는 프롭이다. 
