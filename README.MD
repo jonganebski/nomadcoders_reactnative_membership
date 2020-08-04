@@ -235,3 +235,16 @@ Failed prop type: The prop 'backgroundImage' is marked as required in 'Slide', b
 ```
 
 이 에러가 왜 생기는지 모르겠다... 작동은 일단 된다.
+
+# 4.5 Popular Movies
+
+### `Dimensions.get("window");`
+
+"screen"에서 "window"로 바꿨다. 왜냐하면 스크린으로 했을 때에는 웹환경에서 제대로 보이지 않기 때문이다.
+
+### `<ScrollView />`
+
+웹브라우져와는 다르게 스마트폰에서 스크롤이 필요하다면 이 컴포넌트를 임포트해서 넣어줘야 한다. 임포트 출처는 리액트 네이티브.
+
+- `contentContainerStyle={{ flex: 1, justifyContent: isLoading ? "center" : "flex-start",}}`  
+  처음엔 style에 썼는데, justifyContent는 contentContainerStyle이라는 prop으로 전달하라고 에러가 나왔다. 로딩 중에는 센터로 둔 이유는 동그란 로딩 애니메이션이 중앙에 위치하게 하기 위해서.
