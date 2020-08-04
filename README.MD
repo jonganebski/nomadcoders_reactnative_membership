@@ -260,3 +260,21 @@ react-native-gesture-handler에서 제공하는 것 말고, 리액트 네이티�
 거의 같다. 가장 큰 차이점은 substring의 경우 시작인덱스와 종료인덱스의 위치가 바껴도 알아서 인식한다는 것이다. 하지만 바로 그것 때문에 마이너스 인덱스를 쓸 수 없다.
 
 ### `<ScrollView />`에 들어갈 수 있는 prop들은 매우 많다. 이 부분은 documentation을 참고할 것.
+
+# 4.8, 4.9 Horizontal
+
+### `{releaseDate ? <ReleaseDate>{releaseDate}</ReleaseDate> : null}`
+
+Horizontal.js를 tv shows에서도 쓸 생각인데 거기엔 release date가 없으므로 이렇게 if문으로 통제한 것.
+
+### `util.js trimText(){}`
+
+계속 반복되는 문자열 자르기를 함수로 만들었다.
+
+### `Poster.js <Image source={{ uri: apiImage(url) }}></Image>;`
+
+uri가 받는 인자를 수정해서 각 컴포넌트에서 함수가 아닌 url만 넣어도 되도록 수정함.
+
+### `width: ${WIDTH}px; -> width: 100%;`
+
+Dimensions.get("window");로 받아오는 WIDTH를 쓰면 웹환경에서 창 크기를 조절할 때 반응적으로 너비가 바뀌지 않는 문제가 있었다. 물론 새로고침을 하면 다시 그 화면 크기에 맞게 조정되지만 반응적이지 않은 문제는 고쳐지지 않았다. 그래서 width: 100%로 수정.

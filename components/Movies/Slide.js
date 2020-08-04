@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { apiImage } from "../../api";
 import Poster from "../Poster";
 import Votes from "../Votes";
+import { trimText } from "../../utils";
 
 const Container = styled.View`
   width: 100%;
@@ -58,17 +59,15 @@ const ButtonText = styled.Text`
 
 const Slide = ({ id, title, backgroundImage, poster, votes, overview }) => (
   <Container>
-    <BG source={{ uri: apiImage(poster) }}></BG>
+    <BG source={{ uri: apiImage(backgroundImage) }}></BG>
     <Content>
-      <Poster url={apiImage(backgroundImage)}></Poster>
+      <Poster url={poster}></Poster>
       <Data>
-        <Title>
-          {title?.length > 40 ? `${title.substring(0, 40)}...` : title}
-        </Title>
+        <Title>{trimText(title, 40)}</Title>
         <VotesContainer>
           <Votes votes={votes}></Votes>
         </VotesContainer>
-        <Overview>{overview?.substring(0, 110)}...</Overview>
+        <Overview>{trimText(overview, 110)}</Overview>
         <TouchableOpacity>
           <Button>
             <ButtonText>View details</ButtonText>
