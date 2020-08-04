@@ -8,6 +8,7 @@ import Vertical from "../../components/Vertical";
 import Horizontal from "../../components/Horizontal";
 import ScrollContainer from "../../components/ScrollContainer";
 import HorizontalSlide from "../../components/HorizontalSlide";
+import List from "../../components/List";
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get("window");
 
@@ -18,10 +19,6 @@ const SliderContainer = styled.View`
 `;
 
 const Container = styled.View``;
-
-const UpcomingContainer = styled.View`
-  margin-top: 20px;
-`;
 
 const MoviesPresenter = ({ isLoading, nowPlaying, popular, upcoming }) => {
   return (
@@ -54,8 +51,7 @@ const MoviesPresenter = ({ isLoading, nowPlaying, popular, upcoming }) => {
               ></Vertical>
             ))}
           </HorizontalSlide>
-          <Title title={"Coming Soon"}></Title>
-          <UpcomingContainer>
+          <List title="Coming soon">
             {upcoming.map((movie) => (
               <Horizontal
                 key={movie.id}
@@ -66,7 +62,7 @@ const MoviesPresenter = ({ isLoading, nowPlaying, popular, upcoming }) => {
                 overview={movie.overview}
               ></Horizontal>
             ))}
-          </UpcomingContainer>
+          </List>
         </Container>
       </>
     </ScrollContainer>

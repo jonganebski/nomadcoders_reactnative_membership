@@ -1,8 +1,9 @@
 import React from "react";
 import { ScrollView } from "react-native";
+import PropTypes from "prop-types";
 import Title from "./Title";
 
-export default ({ title, children }) => (
+const HorizontalSlide = ({ title, children }) => (
   <>
     <Title title={title}></Title>
     <ScrollView
@@ -15,3 +16,10 @@ export default ({ title, children }) => (
     </ScrollView>
   </>
 );
+
+HorizontalSlide.ptopTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
+export default HorizontalSlide;
