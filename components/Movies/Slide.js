@@ -1,10 +1,10 @@
 import React from "react";
+import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import PropTypes from "prop-types";
 import { apiImage } from "../../api";
 import Poster from "../Poster";
 import Votes from "../Votes";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Container = styled.View`
   width: 100%;

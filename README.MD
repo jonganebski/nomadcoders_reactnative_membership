@@ -248,3 +248,15 @@ Failed prop type: The prop 'backgroundImage' is marked as required in 'Slide', b
 
 - `contentContainerStyle={{ flex: 1, justifyContent: isLoading ? "center" : "flex-start",}}`  
   처음엔 style에 썼는데, justifyContent는 contentContainerStyle이라는 prop으로 전달하라고 에러가 나왔다. 로딩 중에는 센터로 둔 이유는 동그란 로딩 애니메이션이 중앙에 위치하게 하기 위해서.
+
+# 4.7 Vertical Movie Component part Two
+
+### `import { TouchableOpacity } from "react-native";`
+
+react-native-gesture-handler에서 제공하는 것 말고, 리액트 네이티브 자체의 TouchableOpacity를 쓴다.
+
+### `String.slice(), String.substring()`
+
+거의 같다. 가장 큰 차이점은 substring의 경우 시작인덱스와 종료인덱스의 위치가 바껴도 알아서 인식한다는 것이다. 하지만 바로 그것 때문에 마이너스 인덱스를 쓸 수 없다.
+
+### `<ScrollView />`에 들어갈 수 있는 prop들은 매우 많다. 이 부분은 documentation을 참고할 것.

@@ -48,12 +48,17 @@ const MoviesPresenter = ({ isLoading, nowPlaying, popular }) => {
           </SliderContainer>
           <Container>
             <Title title={"Popular Movies"}></Title>
-            <ScrollView horizontal>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingLeft: 30 }}
+              style={{ marginTop: 20 }}
+            >
               {popular.map((movie) => (
                 <Vertical
                   key={movie.id}
                   poster={movie.poster_path}
-                  title={movie.original_title}
+                  title={movie.title}
                   votes={movie.vote_average}
                 ></Vertical>
               ))}
