@@ -323,3 +323,7 @@ Dimensions.get("window");로 받아오는 WIDTH를 쓰면 웹환경에서 창 �
 ```
 TextInput에는 굉장히 많은 prop들이 들어갈 수 있다 (Documentation 참고). 여기서 특이할 점은 위에서도 잘 나와있듯이 `onChangeText`와 `onSubmitEditing`이 각각 onChange와 onSubmit의 자리를 대신한다는 것이다.  
 `returnKeyType`은 스마트폰의 키보드에서 입력키가 있는 자리에 어떤 키를 표시할 것인지 정할 수 있는 프롭이다. 
+
+# 6.1 Searching Logic
+
+TextContainer.js에 별다른 언급이 없어도 onChange나 search 함수가 작동하는 이유는 지난 시간 Input.js에 이미 `onChangeText`와 `onSubmitEditing`에 함수들을 연결시켜놨기 때문이다. 
