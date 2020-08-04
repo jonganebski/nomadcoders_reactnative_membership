@@ -299,3 +299,9 @@ Dimensions.get("window");로 받아오는 WIDTH를 쓰면 웹환경에서 창 �
 - `children` prop을 이용한다. 예전에도 언급했듯이 이는 자동적으로 주어지는 프롭이기 때문에 프리젠터에서 프롭으로 넘길 필요는 없다.
 
 `Tabs.js`에서 TV Shows 스크린을 맨 위로 옮겼는데, 이 스크린이 제일 먼저 위치하게 해서 개발하는 도중에 바로바로 확인 가능하도록 한 일시적인 조치다.
+
+# 5.1 Abstraction Like a Boss
+
+### api.js 오타 수정
+
+### `HorizontalSlide.js`를 만들어서 코드 재활용
