@@ -28,6 +28,7 @@ const MoviesPresenter = ({ isLoading, nowPlaying, popular, upcoming }) => {
         backgroundColor: "black",
       }}
       contentContainerStyle={{
+        flex: isLoading ? 1 : "auto",
         justifyContent: isLoading ? "center" : "flex-start",
       }}
     >

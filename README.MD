@@ -278,3 +278,16 @@ uri가 받는 인자를 수정해서 각 컴포넌트에서 함수가 아닌 url
 ### `width: ${WIDTH}px; -> width: 100%;`
 
 Dimensions.get("window");로 받아오는 WIDTH를 쓰면 웹환경에서 창 크기를 조절할 때 반응적으로 너비가 바뀌지 않는 문제가 있었다. 물론 새로고침을 하면 다시 그 화면 크기에 맞게 조정되지만 반응적이지 않은 문제는 고쳐지지 않았다. 그래서 width: 100%로 수정.
+
+# 4.10 Finishing the Movies
+
+### `flex: isLoading ? 1 : "auto"`
+
+로딩 애니메이션 중앙으로 오도록 조치.
+
+### `Date.toLocaleDateString([locales [, options]])`
+
+- Date instance의 메소드이므로 new Date()로 인스턴스를 먼저 만들어주는 것에 주의.
+- 보이다시피 locale, options 둘 다 선택적으로 기입할 수 있는 사항이다.
+- locale(o), options(x) 인 경우 일단 모두 "numeric"인 것으로 간주하는게 기본이며, 로케일에 있는 지역에 따라 그 지역의 년, 월, 일 표기 순서를 따라 표시한다. 12/19/2020, 19/12/2020, 2020.12.19 등.
+- 여기서는 쓰지 않았지만 weekday(요일표시!), timeZone, timeZoneName 등 여러 옵션 사항이 더 있다.
