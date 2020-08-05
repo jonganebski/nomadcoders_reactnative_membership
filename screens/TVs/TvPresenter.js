@@ -11,8 +11,8 @@ const Container = styled.View`
   margin-top: 30px;
 `;
 
-const TvPresenter = ({ isLoading, popular, topRated, today }) => (
-  <ScrollContainer isLoading={isLoading}>
+const TvPresenter = ({ isLoading, popular, topRated, today, onRefreshFn }) => (
+  <ScrollContainer isLoading={isLoading} onRefreshFn={onRefreshFn}>
     <Container>
       <HorizontalSlide title="Popular">
         {popular.map((show) => (

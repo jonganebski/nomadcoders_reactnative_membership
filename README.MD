@@ -332,3 +332,52 @@ TextContainer.js에 별다른 언급이 없어도 onChange나 search 함수가 �
 # 6.3 Pull to Refresh One
 
 Pull to Refresh를 하기 전에 빈 포스터를 기본 이미지로 채우는 과정이다. App.js에서 preloading돼 있었던 이미지를 써서 apiImage함수를 수정해줬다.
+
+# 6.3, 6.4 Pull to Refresh
+
+```
+<ScrollView ...
+  refreshControl={
+    <RefreshControl
+      tintColor={"white"}
+      refreshing={isRefreshing}
+      onRefresh={onRefresh}
+    />
+  }
+/>
+```
+
+### `<ScrollView ... refreshControl={ <RefreshControl ... /> } />`
+
+먼저 이 요상한 구조부터 알고(혹은 만들고) 가야 되는데, 컴포넌트 내의 refreshControl이라는 옵션에 또 다른 컴포넌트가 들어간다는 것이다.
+
+### `tintColor`, `refreshing`, `onRefresh`
+
+Documentation 참고. 이 외에도 여러가지 옵션들이 있다. isRefreshing을 다루는 useState와 onRefresh함수를 정의했다.
+
+### `await onRefreshFn();`
+
+refresh 할 때마다 api들을 돌려야 한다. 그래서
+
+- MovieContainer -> MoviePresenter-> ScrollContainer
+- TvContainer -> TvPresenter -> ScrollContainer
+- SearchPresenter -> ScrollContainer
+
+로 getData함수나 search함수가 연결된 것을 볼 수 있다. Search에서는 이미 onSubmit으로 search함수가 프리젠터로 전달된 것이 있으므로 이걸 다시 연결해주면 된다. 대신 아무것도 검색하지 않은 상태에서 refresh하게되면 에러가 발생하게 되므로, search함수에 조건을 넣었다.
+
+```
+const ScrollContainer = ({ contentContainerStyle })=> (
+  <ScrollView
+    contentContainerStyle={{
+      flex: isLoading ? 1 : "auto",
+      justifyContent: isLoading ? "center" : "flex-start",
+      ...contentContainerStyle,
+    }}
+  />
+)
+```
+
+### `...contentContainerStyle`
+
+ScrollContainer.js의 ScrollView를 사용하는 다른 컴포넌트들은 단지 이 파일에서 정의된 스타일(contentContainerStyle)을 따라가야만 하는가?라는 질문에 답해줄 수 있는 부분이다.  
+contentContainerStyle도 하나의 prop으로 받아서 spread로 풀어주면 얼마든지 사용 컴포넌트에 따라 스타일을 다르게 줄 수 있다. 여기서는 SearchPresenter가 그렇게 하고 있다.

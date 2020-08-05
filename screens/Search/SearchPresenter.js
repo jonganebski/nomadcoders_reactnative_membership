@@ -1,15 +1,15 @@
 import React from "react";
-import styled from "styled-components/native";
 import Input from "../../components/Search/Input";
 import HorizontalSlide from "../../components/HorizontalSlide";
 import Vertical from "../../components/Vertical";
-
-const Container = styled.ScrollView`
-  background-color: black;
-`;
+import ScrollContainer from "../../components/ScrollContainer";
 
 const SerachPresenter = ({ movies, shows, keyword, onChange, onSubmit }) => (
-  <Container>
+  <ScrollContainer
+    isLoading={false}
+    onRefreshFn={onSubmit}
+    contentContainerStyle={{ paddingTop: 10 }}
+  >
     <Input
       placeholder="Write a keyword"
       value={keyword}
@@ -42,7 +42,7 @@ const SerachPresenter = ({ movies, shows, keyword, onChange, onSubmit }) => (
         ))}
       </HorizontalSlide>
     )}
-  </Container>
+  </ScrollContainer>
 );
 
 export default SerachPresenter;

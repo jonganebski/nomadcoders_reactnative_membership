@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SearchPresenter from "./SearchPresenter";
 import { movieApi, tvApi } from "../../api";
 
@@ -12,6 +12,9 @@ export default () => {
   });
   const onChange = (text) => setKeyword(text);
   const search = async () => {
+    if (keyword === "") {
+      return;
+    }
     const [movies, moviesError] = await movieApi.search(keyword);
     const [shows, showsError] = await tvApi.search(keyword);
     setResults({
