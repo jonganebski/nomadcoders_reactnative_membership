@@ -381,3 +381,18 @@ const ScrollContainer = ({ contentContainerStyle })=> (
 
 ScrollContainer.js의 ScrollView를 사용하는 다른 컴포넌트들은 단지 이 파일에서 정의된 스타일(contentContainerStyle)을 따라가야만 하는가?라는 질문에 답해줄 수 있는 부분이다.  
 contentContainerStyle도 하나의 prop으로 받아서 spread로 풀어주면 얼마든지 사용 컴포넌트에 따라 스타일을 다르게 줄 수 있다. 여기서는 SearchPresenter가 그렇게 하고 있다.
+
+# 7.0 Going to Detail
+
+```
+import { useNavigation } from "@react-navigation/native";
+...
+  const navigation = useNavigation();
+  const goToDetail = () => {
+    navigation.navigate("Detail", { id, title, releaseDate, poster, overview });
+  };
+```
+
+Horizontal.js, Vertical.js, Slide.js는 Screen이 아니라 Component이기 때문에 기본적으로 navigation 프롭이 제공되지 않는다. 하지만 `useNavigation`으로 쓸 수 있다.
+
+### `<TouchableOpacity onPress={goToDetail}>`
