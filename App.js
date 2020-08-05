@@ -23,6 +23,7 @@ export default function App() {
   const loadAssets = () => {
     const images = cacheImages([
       "https://images.unsplash.com/photo-1593642634627-6fdaf35209f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+      // this url image is used at api.js apiImage function.
       require("./assets/splash.png"),
     ]);
     const fonts = cacheFonts([Ionicons.font, FontAwesome.font]);

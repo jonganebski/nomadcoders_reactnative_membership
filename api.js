@@ -33,4 +33,10 @@ export const tvApi = {
   show: (id) => getAnything(`/tv/${id}`),
 };
 
-export const apiImage = (path) => `https://image.tmdb.org/t/p/w500${path}`;
+export const apiImage = (path) => {
+  if (path) {
+    return `https://image.tmdb.org/t/p/w500${path}`;
+  } else {
+    return "https://images.unsplash.com/photo-1593642634627-6fdaf35209f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80";
+  }
+};
