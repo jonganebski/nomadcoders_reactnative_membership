@@ -1,26 +1,37 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {
+  createNativeStackNavigator,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 import { View, Text, TouchableOpacity } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
-const ScreenOne = ({ navigation: { navigate } }) => {
+const ScreenOne: React.FC<NativeStackScreenProps<any, 'One'>> = ({
+  navigation,
+}) => {
   return (
-    <TouchableOpacity onPress={() => navigate('Two')}>
+    <TouchableOpacity onPress={() => navigation.navigate('Two')}>
       <Text>Screen One</Text>
     </TouchableOpacity>
   );
 };
-const ScreenTwo = ({ navigation: { navigate } }) => {
+const ScreenTwo: React.FC<NativeStackScreenProps<any, 'Two'>> = ({
+  navigation,
+}) => {
   return (
-    <TouchableOpacity onPress={() => navigate('Three')}>
+    <TouchableOpacity onPress={() => navigation.navigate('Three')}>
       <Text>Screen Two</Text>
     </TouchableOpacity>
   );
 };
-const ScreenThree = ({ navigation: { setOptions } }) => {
+const ScreenThree: React.FC<NativeStackScreenProps<any, 'Three'>> = ({
+  navigation,
+}) => {
   return (
-    <TouchableOpacity onPress={() => setOptions({ title: 'Hello!' })}>
+    <TouchableOpacity
+      onPress={() => navigation.setOptions({ title: 'Hello!' })}
+    >
       <Text>Change Page Title</Text>
     </TouchableOpacity>
   );
