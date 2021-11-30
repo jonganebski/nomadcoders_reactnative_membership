@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import AppLoading from 'expo-app-loading';
-import { Text, Image } from 'react-native';
-import { loadAsync as loadFontAsync, useFonts } from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-import { Asset, useAssets } from 'expo-asset';
+import { NavigationContainer } from '@react-navigation/native';
+import AppLoading from 'expo-app-loading';
+import { useAssets } from 'expo-asset';
+import { useFonts } from 'expo-font';
+import React from 'react';
+import { Root } from './navigation/Root';
 
 export default function App() {
   const [assets] = useAssets([
@@ -12,5 +13,9 @@ export default function App() {
   const [isFontsLoaded] = useFonts(Ionicons.font);
 
   if (!assets || !isFontsLoaded) return <AppLoading />;
-  return <Text>Loading is done!</Text>;
+  return (
+    <NavigationContainer>
+      <Root />
+    </NavigationContainer>
+  );
 }
