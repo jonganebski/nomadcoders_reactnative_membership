@@ -10,3 +10,7 @@ https://reactnative.dev/docs/environment-setup
   좋지만 강의에서는 사용하지 않을 것이다. 우리가 직접 설정하고 싶은 것들도 있기 때문이다.
 
 - CRNA
+
+> npx pod-install ios
+
+expo를 통해 의존성 설치 이후?

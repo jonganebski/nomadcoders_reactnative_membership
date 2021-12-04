@@ -1,5 +1,12 @@
 #import "AppDelegate.h"
 
+//================================ NEW CODE ================================
+// https://github.com/facebook/react-native/issues/16376#issuecomment-810094592
+#if RCT_DEV
+#import <React/RCTDevLoadingView.h>
+#endif
+//================================== END ==================================
+
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -29,11 +36,26 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#if defined(FB_SONARKIT_ENABLED) && __has_include(<FlipperKit/FlipperClient.h>)
-  InitializeFlipper(application);
-#endif
+  //================================ NEW CODE ================================
+  // https://github.com/facebook/react-native/issues/16376#issuecomment-810094592
+  NSURL *jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.js" fallbackResource:nil];
+
+  RCTBridge *bridge = [[RCTBridge alloc] initWithBundleURL:jsCodeLocation
+                                              moduleProvider:nil
+                                               launchOptions:launchOptions];
+  #if RCT_DEV
+   [bridge moduleForClass:[RCTDevLoadingView class]];
+  #endif
+  //================================== END ==================================
+
+//================================ ORIGINAL CODE ================================
+// #if defined(FB_SONARKIT_ENABLED) && __has_include(<FlipperKit/FlipperClient.h>)
+//   InitializeFlipper(application);
+// #endif
   
-  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+//   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+//===================================== END =====================================
+
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge moduleName:@"main" initialProperties:nil];
   id rootViewBackgroundColor = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"RCTRootViewBackgroundColor"];
   if (rootViewBackgroundColor != nil) {

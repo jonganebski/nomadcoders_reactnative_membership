@@ -15,6 +15,9 @@ export const Tabs = () => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <Tab.Navigator
+      sceneContainerStyle={{
+        backgroundColor: isDarkMode ? RUSSIAN_PALETTE.biscay : 'white',
+      }}
       screenOptions={{
         tabBarStyle: {
           backgroundColor: isDarkMode ? RUSSIAN_PALETTE.biscay : 'white',
