@@ -19,6 +19,8 @@ export const Tabs = () => {
         backgroundColor: isDarkMode ? RUSSIAN_PALETTE.biscay : 'white',
       }}
       screenOptions={{
+        // Without this, components will not be unmounted when the user goes to the abother tab.
+        unmountOnBlur: true,
         tabBarStyle: {
           backgroundColor: isDarkMode ? RUSSIAN_PALETTE.biscay : 'white',
         },

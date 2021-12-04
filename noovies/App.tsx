@@ -8,8 +8,11 @@ import { useColorScheme } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
 import { Root } from './navigation/Root';
 import { darkTheme, lightTheme } from './styled';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 // https://reactnative.dev/docs/typescript
+
+const client = new QueryClient();
 
 export default function App() {
   const [assets] = useAssets([
@@ -20,10 +23,12 @@ export default function App() {
 
   if (!assets || !isFontsLoaded) return <AppLoading />;
   return (
-    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-      <NavigationContainer>
-        <Root />
-      </NavigationContainer>
-    </ThemeProvider>
+    <QueryClientProvider client={client}>
+      <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+        <NavigationContainer>
+          <Root />
+        </NavigationContainer>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }

@@ -26,7 +26,6 @@ export const VMedia: React.FC<VMediaProps> = (props) => {
 };
 
 const Movie = styled.View`
-  margin-right: 20px;
   align-items: center;
 `;
 
