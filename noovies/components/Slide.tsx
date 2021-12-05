@@ -1,12 +1,21 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { BlurView } from 'expo-blur';
 import React from 'react';
-import { StyleSheet, useColorScheme } from 'react-native';
+import {
+  StyleSheet,
+  TouchableWithoutFeedback,
+  useColorScheme,
+} from 'react-native';
 import styled from 'styled-components/native';
+import { MediaType } from '../interfaces';
+import { RootParamList } from '../navigation/Root';
 import { formatImagePath } from '../utils';
 import { Poster } from './Poster';
 import { Votes } from './Votes';
 
 interface SlideProps {
+  mediaType: MediaType;
   originalTitle: string;
   backdropPath: string;
   voteAverage: number;
@@ -17,31 +26,50 @@ interface SlideProps {
 
 export const Slide: React.FC<SlideProps> = (props) => {
   const isDarkMode = useColorScheme() === 'dark';
+
+  const navigation = useNavigation<NativeStackNavigationProp<RootParamList>>();
+
+  const goToDetailScreen = () => {
+    navigation.navigate('Stacks', {
+      screen: 'Detail',
+      params: {
+        id: props.id,
+        mediaType: props.mediaType,
+        originalTitle: props.originalTitle,
+        posterPath: props.posterPath,
+        backdropPath: props.backdropPath,
+        overview: props.overview,
+      },
+    });
+  };
+
   return (
-    <View>
-      <BgImage
-        style={StyleSheet.absoluteFill}
-        source={{ uri: formatImagePath(props.backdropPath) }}
-      />
-      <BlurView
-        style={StyleSheet.absoluteFill}
-        intensity={50}
-        tint={isDarkMode ? 'dark' : 'light'}
-      >
-        <Wrapper>
-          <Poster uri={formatImagePath(props.posterPath)} />
-          <Column>
-            <MovieTitle>{props.originalTitle}</MovieTitle>
-            <Overview>{props.overview.slice(0, 100)}...</Overview>
-            <Votes voteAverage={props.voteAverage} />
-          </Column>
-        </Wrapper>
-      </BlurView>
-    </View>
+    <TouchableWithoutFeedback onPress={goToDetailScreen}>
+      <Container>
+        <BgImage
+          style={StyleSheet.absoluteFill}
+          source={{ uri: formatImagePath(props.backdropPath) }}
+        />
+        <BlurView
+          style={StyleSheet.absoluteFill}
+          intensity={50}
+          tint={isDarkMode ? 'dark' : 'light'}
+        >
+          <Wrapper>
+            <Poster uri={formatImagePath(props.posterPath)} />
+            <Column>
+              <MovieTitle>{props.originalTitle}</MovieTitle>
+              <Overview>{props.overview.slice(0, 100)}...</Overview>
+              <Votes voteAverage={props.voteAverage} />
+            </Column>
+          </Wrapper>
+        </BlurView>
+      </Container>
+    </TouchableWithoutFeedback>
   );
 };
 
-const View = styled.View`
+const Container = styled.View`
   flex: 1;
 `;
 

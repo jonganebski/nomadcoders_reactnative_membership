@@ -1,23 +1,23 @@
 import { useQuery } from 'react-query';
-import { API_KEY, BASE_URL } from '../constants';
+import { BASE_URL, API_KEY } from '../constants';
 
-export interface TrendingMoviesResData {
+export interface TrendingTVShowsResData {
   page: number;
-  results: TrendingMoviesResData__result[];
+  results: TrendingTVShowsResData__result[];
   total_pages: number;
   total_results: number;
 }
 
-export enum TrendingMoviesResData__result__originalLanguage {
+export enum TrendingTVShowsResData__result__originalLanguage {
   En = 'en',
 }
 
-export interface TrendingMoviesResData__result {
+export interface TrendingTVShowsResData__result {
   adult?: boolean;
   backdrop_path: string;
   genre_ids: number[];
   id: number;
-  original_language: TrendingMoviesResData__result__originalLanguage;
+  original_language: TrendingTVShowsResData__result__originalLanguage;
   original_title?: string;
   overview: string;
   poster_path: string;
@@ -34,11 +34,12 @@ export interface TrendingMoviesResData__result {
 }
 
 const fetcher = async () => {
-  return (
-    await fetch(`${BASE_URL}/trending/movie/week?api_key=${API_KEY}`)
+  const data = await (
+    await fetch(`${BASE_URL}/trending/tv/week?api_key=${API_KEY}`)
   ).json();
+  return data;
 };
 
-export const useTrendingMoviesQuery = () => {
-  return useQuery<TrendingMoviesResData>(['MOVIES', 'TRENDING'], fetcher);
+export const useTrendingTVShowsQuery = () => {
+  return useQuery<TrendingTVShowsResData>(['TV', 'TRENDING'], fetcher);
 };

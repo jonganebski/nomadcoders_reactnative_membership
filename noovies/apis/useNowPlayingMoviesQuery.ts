@@ -32,7 +32,7 @@ export interface NowPlayingMovieResData__result {
 const fetcher = async () => {
   return (
     await fetch(
-      `${BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1&region=KR`
+      `${BASE_URL}/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1&region=KR`
     )
   ).json();
 };

@@ -11,14 +11,16 @@ import { useQueryClient } from 'react-query';
 import styled from 'styled-components/native';
 import { useNowPlayingMoviesQuery } from '../apis/useNowPlayingMoviesQuery';
 import {
-  TrendingMovieResData__result,
+  TrendingMoviesResData__result,
   useTrendingMoviesQuery,
 } from '../apis/useTrendingMoviesQuery';
 import {
   UpcomingMovieResData__result,
   useUpcomingMoviesQuery,
 } from '../apis/useUpcomingMoviesQuery';
+import { HList } from '../components/HList';
 import { HMedia } from '../components/HMedia';
+import { Loader } from '../components/Loader';
 import { Slide } from '../components/Slide';
 import { VMedia } from '../components/VMedia';
 
@@ -62,23 +64,14 @@ export const Movies: React.FC<BottomTabScreenProps<any, 'Movies'>> = ({
     return (
       <HMedia
         originalTitle={item.original_title}
+        backdropPath={item.backdrop_path}
         releaseDate={item.release_date}
         voteAverage={item.vote_average}
         posterPath={item.poster_path}
         overview={item.overview}
+        mediaType="movie"
+        id={item.id}
         key={item.id}
-      />
-    );
-  };
-
-  const renderVMedia: ListRenderItem<TrendingMovieResData__result> = ({
-    item,
-  }) => {
-    return (
-      <VMedia
-        originalTitle={item.original_title}
-        posterPath={item.poster_path}
-        voteAverage={item.vote_average}
       />
     );
   };
@@ -86,9 +79,7 @@ export const Movies: React.FC<BottomTabScreenProps<any, 'Movies'>> = ({
   const keyExtractor = (item: { id: number }) => item.id + '';
 
   return isLoading ? (
-    <Loader>
-      <ActivityIndicator />
-    </Loader>
+    <Loader />
   ) : upcomingMoviesData ? (
     <Container
       onRefresh={onRefresh}
@@ -120,23 +111,17 @@ export const Movies: React.FC<BottomTabScreenProps<any, 'Movies'>> = ({
                   voteAverage={movie.vote_average}
                   posterPath={movie.poster_path}
                   overview={movie.overview}
+                  mediaType="movie"
                   id={movie.id}
                   key={movie.id}
                 />
               ))}
             </Swiper>
-            <ListContainer>
-              <ListTitle>Trending Movies</ListTitle>
-              <TrendingScroll
-                contentContainerStyle={{ paddingHorizontal: 30 }}
-                showsHorizontalScrollIndicator={false}
-                horizontal
-                data={trendingMoviesData?.results}
-                keyExtractor={keyExtractor}
-                renderItem={renderVMedia}
-                ItemSeparatorComponent={HSeparator}
-              />
-            </ListContainer>
+            <HList
+              title="Trending Movies"
+              mediaType="movie"
+              data={trendingMoviesData?.results}
+            />
             <ComingSoonTitle>Coming Soon</ComingSoonTitle>
           </>
         );
@@ -149,32 +134,14 @@ const Container = styled.FlatList`
   background-color: ${(props) => props.theme.mainBgColor};
 ` as unknown as typeof FlatList;
 
-const Loader = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-`;
-
-const ListContainer = styled.View`
-  margin-bottom: 40px;
-`;
-
 const ListTitle = styled.Text`
   margin-left: 30px;
   font-size: 16px;
   font-weight: 600;
 `;
 
-const TrendingScroll = styled.FlatList`
-  margin-top: 20px;
-` as unknown as typeof FlatList;
-
 const ComingSoonTitle = styled(ListTitle)`
   margin-bottom: 10px;
-`;
-
-const HSeparator = styled.View`
-  width: 20px;
 `;
 
 const VSeparator = styled.View`

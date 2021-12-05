@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 interface PosterProps {
-  uri: string;
+  uri?: string;
 }
 
 export const Poster: React.FC<PosterProps> = ({ uri }) => {
