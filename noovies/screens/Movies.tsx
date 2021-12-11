@@ -1,19 +1,11 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import React, { useState } from 'react';
-import {
-  ActivityIndicator,
-  Dimensions,
-  ListRenderItem,
-  FlatList,
-} from 'react-native';
+import { Dimensions, FlatList, ListRenderItem } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { useQueryClient } from 'react-query';
 import styled from 'styled-components/native';
 import { useNowPlayingMoviesQuery } from '../apis/useNowPlayingMoviesQuery';
-import {
-  TrendingMoviesResData__result,
-  useTrendingMoviesQuery,
-} from '../apis/useTrendingMoviesQuery';
+import { useTrendingMoviesQuery } from '../apis/useTrendingMoviesQuery';
 import {
   UpcomingMovieResData__result,
   useUpcomingMoviesQuery,
@@ -22,7 +14,6 @@ import { HList } from '../components/HList';
 import { HMedia } from '../components/HMedia';
 import { Loader } from '../components/Loader';
 import { Slide } from '../components/Slide';
-import { VMedia } from '../components/VMedia';
 
 // ScrollView has a performace issue. So we replace them to FlatList
 // ScrollView renders its children at once.
@@ -44,8 +35,12 @@ export const Movies: React.FC<BottomTabScreenProps<any, 'Movies'>> = ({
   } = useNowPlayingMoviesQuery();
   const { isLoading: isTrendingMoviesQueryLoading, data: trendingMoviesData } =
     useTrendingMoviesQuery();
-  const { isLoading: isUpcomingMoviesQueryLoading, data: upcomingMoviesData } =
-    useUpcomingMoviesQuery();
+  const {
+    isLoading: isUpcomingMoviesQueryLoading,
+    hasNextPage,
+    fetchNextPage,
+    data: upcomingMoviesData,
+  } = useUpcomingMoviesQuery();
 
   const isLoading =
     isNowPlayingMoviesQueryLoading ||
@@ -56,6 +51,11 @@ export const Movies: React.FC<BottomTabScreenProps<any, 'Movies'>> = ({
     setIsRefreshing(true);
     await queryClient.refetchQueries(['MOVIES']);
     setIsRefreshing(false);
+  };
+
+  const loadMore = () => {
+    if (!hasNextPage) return;
+    fetchNextPage();
   };
 
   const renderHMedia: ListRenderItem<UpcomingMovieResData__result> = ({
@@ -84,7 +84,9 @@ export const Movies: React.FC<BottomTabScreenProps<any, 'Movies'>> = ({
     <Container
       onRefresh={onRefresh}
       refreshing={isRefreshing}
-      data={upcomingMoviesData.results}
+      onEndReached={loadMore}
+      onEndReachedThreshold={0.4}
+      data={upcomingMoviesData.pages.flatMap(({ results }) => results)}
       keyExtractor={keyExtractor}
       renderItem={renderHMedia}
       ItemSeparatorComponent={VSeparator}

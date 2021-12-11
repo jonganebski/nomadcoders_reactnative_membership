@@ -1,18 +1,19 @@
+import { Ionicons } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { LinearGradient } from 'expo-linear-gradient';
+import * as ExpoWebBrowser from 'expo-web-browser'; // To open the browser inside of the app.
 import React, { useEffect } from 'react';
-import { StyleSheet, Linking } from 'react-native';
+import { Linking, Platform, Share, StyleSheet } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
+import { useMovieDetailQuery } from '../apis/useMovieDetailQuery';
+import { useTVShowDetailQuery } from '../apis/useTVShowDetailQuery';
+import { RUSSIAN_PALETTE } from '../colors';
+import { Loader } from '../components/Loader';
 import { Poster } from '../components/Poster';
 import { MediaType } from '../interfaces';
 import { StackParamList } from '../navigation/Stacks';
 import { formatImagePath } from '../utils';
-import { LinearGradient } from 'expo-linear-gradient';
-import { RUSSIAN_PALETTE } from '../colors';
-import { useMovieDetailQuery } from '../apis/useMovieDetailQuery';
-import { useTVShowDetailQuery } from '../apis/useTVShowDetailQuery';
-import { Loader } from '../components/Loader';
-import { Ionicons } from '@expo/vector-icons';
-import * as ExpoWebBrowser from 'expo-web-browser'; // To open the browser inside of the app.
 
 // Need to install expo-linear-gradient to style gradient like css. Don't forget to npx pod-install ios
 
@@ -28,12 +29,6 @@ export interface DetailScreenParamList {
 export const Detail: React.FC<
   NativeStackScreenProps<StackParamList, 'Detail'>
 > = (props) => {
-  useEffect(() => {
-    props.navigation.setOptions({
-      headerTitle:
-        props.route.params.mediaType === 'movie' ? 'Movie' : 'TV Show',
-    });
-  }, []);
   const { isLoading: isMovieDetailQueryLoading, data: movieDetailData } =
     useMovieDetailQuery(
       props.route.params.id,
@@ -46,6 +41,48 @@ export const Detail: React.FC<
     );
 
   const isLoading = isMovieDetailQueryLoading || isTVShowDetailQueryLoading;
+
+  const shareMedia = async () => {
+    const isAndroid = Platform.OS === 'android';
+
+    const url =
+      props.route.params.mediaType === 'movie'
+        ? `https://www.imdb.com/title/${movieDetailData?.imdb_id}/`
+        : tvShowDetailData?.homepage ?? '';
+
+    await Share.share({
+      ...(isAndroid
+        ? { message: `${props.route.params.overview}\n Check it out: ${url}` }
+        : { url }),
+      title: props.route.params.originalTitle,
+    });
+  };
+
+  const ShareBtn = () => {
+    return (
+      <TouchableOpacity onPress={shareMedia}>
+        <StyledIcon name="share" size={20} />
+      </TouchableOpacity>
+    );
+  };
+
+  useEffect(() => {
+    props.navigation.setOptions({
+      headerTitle:
+        props.route.params.mediaType === 'movie' ? 'Movie' : 'TV Show',
+    });
+  }, []);
+
+  useEffect(() => {
+    if (
+      (props.route.params.mediaType === 'movie' && movieDetailData) ||
+      (props.route.params.mediaType === 'tvShow' && tvShowDetailData)
+    ) {
+      props.navigation.setOptions({
+        headerRight: ShareBtn,
+      });
+    }
+  }, [props.route.params.mediaType, movieDetailData, tvShowDetailData]); // 이렇게 하지 않고 didMount로 해버리면 shareMedia함수가 선언될 당시에는 data가 없기 때문에 에러가 발생한다. Header에 뭔가를 넣을 때에는 주의해야 한다. 왜냐하면 헤더에 들어가는 컴포넌트는 리랜더 되지 않기 때문에 언제 그 컴포넌트를 넣는지가 중요하다.
 
   const openYouTubeLink = async (videoKey: string) => {
     const URL = `https://m.youtube.com/watch?v=${videoKey}`;
@@ -80,7 +117,7 @@ export const Detail: React.FC<
         {movieDetailData?.videos.results.map((video) => {
           return (
             <VideoBtn onPress={() => openYouTubeLink(video.key)} key={video.id}>
-              <YouTubeIcon name="logo-youtube" size={20} />
+              <StyledIcon name="logo-youtube" size={20} />
               <BtnText>{video.name}</BtnText>
             </VideoBtn>
           );
@@ -132,7 +169,7 @@ const VideoBtn = styled.TouchableOpacity`
   font-weight: 600;
 `;
 
-const YouTubeIcon = styled(Ionicons)`
+const StyledIcon = styled(Ionicons)`
   margin-right: 10px;
   color: ${(props) => props.theme.textColor};
 `;

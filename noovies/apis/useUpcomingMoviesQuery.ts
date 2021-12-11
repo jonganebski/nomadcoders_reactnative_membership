@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { QueryFunctionContext, useInfiniteQuery } from 'react-query';
 import { API_KEY, BASE_URL } from '../constants';
 
 export interface UpcomingMovieResData {
@@ -29,14 +29,29 @@ export interface UpcomingMovieResData__result {
   vote_count: number;
 }
 
-const fetcher = async () => {
+const fetcher = async ({
+  pageParam,
+}: QueryFunctionContext<
+  ['MOVIES', 'UPCOMING'],
+  number
+>): Promise<UpcomingMovieResData> => {
   return (
     await fetch(
-      `${BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1&region=KR`
+      `${BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=en-US&page=${
+        pageParam ?? 1
+      }`
     )
   ).json();
 };
 
 export const useUpcomingMoviesQuery = () => {
-  return useQuery<UpcomingMovieResData>(['MOVIES', 'UPCOMING'], fetcher);
+  return useInfiniteQuery(['MOVIES', 'UPCOMING'], fetcher, {
+    getNextPageParam: ({
+      total_pages: totalPages,
+      page: currentPage,
+    }): number | null => {
+      const nextPage = currentPage + 1;
+      return nextPage > totalPages ? null : nextPage;
+    },
+  });
 };
