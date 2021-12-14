@@ -14,3 +14,5 @@ https://reactnative.dev/docs/environment-setup
 > npx pod-install ios
 
 expo를 통해 의존성 설치 이후?
+
+`CMD + SHIFT + K` to turn on/off ios keyboard
