@@ -16,3 +16,14 @@ https://reactnative.dev/docs/environment-setup
 expo를 통해 의존성 설치 이후?
 
 `CMD + SHIFT + K` to turn on/off ios keyboard
+
+expo 말고 react-native로 컴파일 할 때 다음과 같은 에러가 뜬다.
+
+```terminal
+error Failed to launch the app on simulator, An error was encountered processing the command (domain=com.apple.CoreSimulator.SimError, code=405):
+Unable to lookup in current state: Shutdown
+```
+
+> npx react-native run-ios --simulator="iPhone 12"
+
+simulator를 지정해 주면 해결된다.

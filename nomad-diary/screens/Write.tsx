@@ -2,20 +2,37 @@ import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import styled from 'styled-components/native';
 import { colors } from '../colors';
+import { useRealmCtx } from '../contexts/useRealmContext';
+import { Feeling } from '../schema';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 const EMOTIONS = ['😀', '🥰', '🤪', '😢', '😡', '💀', '💩'];
 
-export const Write = () => {
+export const Write: React.FC<NativeStackScreenProps<any, any>> = ({
+  navigation,
+}) => {
+  const realm = useRealmCtx();
+
   const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
   const [feelings, setFeelings] = useState<string>('');
 
   const onEmotionPress = (emoji: string) => setSelectedEmotion(emoji);
   const onChangeText = (feelings: string) => setFeelings(feelings);
   const onSubmit = () => {
-    if (!feelings || !setSelectedEmotion) {
+    if (!feelings || !selectedEmotion) {
       Alert.alert('Please complete the form.');
+      return;
     }
+    realm?.write(() => {
+      realm.create<Feeling>('Feeling', {
+        _id: new Date().getTime(),
+        message: feelings,
+        emotion: selectedEmotion,
+      });
+    });
+    navigation.goBack();
   };
+
   return (
     <Container__View>
       <Title__Text>How do you feel today?</Title__Text>
