@@ -1,4 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
+import { setTestDeviceIDAsync } from 'expo-ads-admob';
 import AppLoading from 'expo-app-loading';
 import React, { useState } from 'react';
 import Realm from 'realm';
@@ -12,6 +13,7 @@ export default function App() {
 
   const onFinish = () => setIsReady(true);
   const startLoading = async () => {
+    await setTestDeviceIDAsync('EMULATOR');
     const realm = await Realm.open({
       path: 'nomad_diary_db',
       schema: [Feeling.Schema],

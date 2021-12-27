@@ -28,5 +28,14 @@
       </intent-filter>
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
+    <!-- 
+      EXPO AD_MOB START 
+      Ensure that tag with this name and proper value is inside application
+      You can find your App ID in the AdMob UI
+    -->
+    <meta-data
+    android:name="com.google.android.gms.ads.APPLICATION_ID"
+    android:value="ca-app-pub-3940256099942544~3347511713"/> <!-- App ID -->
+    <!-- EXPO AD_MOB END -->
   </application>
 </manifest>

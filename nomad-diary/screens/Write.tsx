@@ -1,10 +1,11 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { AdMobRewarded } from 'expo-ads-admob';
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import styled from 'styled-components/native';
 import { colors } from '../colors';
 import { useRealmCtx } from '../contexts/useRealmContext';
 import { Feeling } from '../schema';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 const EMOTIONS = ['😀', '🥰', '🤪', '😢', '😡', '💀', '💩'];
 
@@ -18,19 +19,26 @@ export const Write: React.FC<NativeStackScreenProps<any, any>> = ({
 
   const onEmotionPress = (emoji: string) => setSelectedEmotion(emoji);
   const onChangeText = (feelings: string) => setFeelings(feelings);
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!feelings || !selectedEmotion) {
       Alert.alert('Please complete the form.');
       return;
     }
-    realm?.write(() => {
-      realm.create<Feeling>('Feeling', {
-        _id: new Date().getTime(),
-        message: feelings,
-        emotion: selectedEmotion,
+    await AdMobRewarded.setAdUnitID('ca-app-pub-3940256099942544/1712485313');
+    await AdMobRewarded.requestAdAsync({ servePersonalizedAds: true });
+    await AdMobRewarded.showAdAsync();
+    AdMobRewarded.addEventListener('rewardedVideoUserDidEarnReward', () => {
+      AdMobRewarded.addEventListener('rewardedVideoDidDismiss', () => {
+        realm?.write(() => {
+          realm.create<Feeling>('Feeling', {
+            _id: new Date().getTime(),
+            message: feelings,
+            emotion: selectedEmotion,
+          });
+        });
+        navigation.goBack();
       });
     });
-    navigation.goBack();
   };
 
   return (
