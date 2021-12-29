@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { TOutNavParamList, OUT_NAV_SCREEN } from '../navigators/OutNav';
+import { TOutNavParamList, OUT_NAV_SCREEN } from '../navigators/screens';
 
 export const Login: React.FC<
   NativeStackScreenProps<TOutNavParamList, OUT_NAV_SCREEN.LOG_IN>

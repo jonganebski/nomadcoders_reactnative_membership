@@ -2,18 +2,9 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Login } from '../screens/Login';
 import { Join } from '../screens/Join';
+import { OUT_NAV_SCREEN } from './screens';
 
 const Nav = createNativeStackNavigator();
-
-export enum OUT_NAV_SCREEN {
-  LOG_IN = 'LOG_IN',
-  JOIN = 'JOIN',
-}
-
-export type TOutNavParamList = {
-  [OUT_NAV_SCREEN.LOG_IN]: undefined;
-  [OUT_NAV_SCREEN.JOIN]: undefined;
-};
 
 export const OutNav = () => (
   <Nav.Navigator>
