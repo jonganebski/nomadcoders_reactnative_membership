@@ -13,7 +13,7 @@ https://reactnative.dev/docs/environment-setup
 
 - CRNA
 
-> npx pod-install ios
+> npx pod-install ios 또는 npx pod-install 모두 가능
 
 expo를 통해 의존성 설치 이후?
 
@@ -49,3 +49,7 @@ XCode를 실행시킬 때, 파인더를 열어서 ios폴더의 socialcoin.xcwork
 GoogleService-Info.plist 파일은 안드로이드 때와는 달리 XCode의 Add files to socialcoin으로 추가해 줘야 한다.
 
 https://rnfirebase.io/#3-ios-setup
+
+## Authentication
+
+https://rnfirebase.io/auth/usage
