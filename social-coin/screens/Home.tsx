@@ -1,14 +1,18 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, View } from 'react-native';
 import { useQuery } from 'react-query';
 import styled from 'styled-components/native';
 import { coins, ICoin } from '../api';
 import { Coin } from '../components/Coin';
+import { IN_NAV_SCREEN, TInNavParamList } from '../navigators/screens';
 
 // FlatList의 numColumns를 쓸 수 있다. 다만 앱을 reload해줄 것.
 // columnWrapperStyle와 조합해서 쓰면 좋다.
 
-export const Home = () => {
+export const Home: React.FC<
+  NativeStackScreenProps<TInNavParamList, IN_NAV_SCREEN.HOME>
+> = () => {
   const { isLoading, data } = useQuery<ICoin[]>('coins', coins);
   const [cleanData, setCleanData] = useState<ICoin[]>([]);
 
@@ -39,7 +43,7 @@ export const Home = () => {
         }}
         ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
         renderItem={({ item, index }) => (
-          <Coin symbol={item.symbol} index={index} />
+          <Coin id={item.id} symbol={item.symbol} index={index} />
         )}
       />
     </Container__View>
