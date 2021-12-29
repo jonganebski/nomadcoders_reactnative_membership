@@ -29,3 +29,23 @@ Unable to lookup in current state: Shutdown
 > npx react-native run-ios --simulator="iPhone 12"
 
 simulator를 지정해 주면 해결된다.
+
+# Social Coin
+
+## Android - Firebase
+
+`/android/app/build.gradle` 파일에 있는 `applicationId`를 봐야 한다.
+
+Debug signing certificate SHA-1 를 찾기 위해서는 다음을 터미널에서 입력해야 한다.
+
+> cd android && ./gradlew signingReport
+
+Task :app:signingReport 의 SHA1을 복붙하여 입력한다. 그리고 시키는대로...
+
+## IOS - Firebase
+
+XCode를 실행시킬 때, 파인더를 열어서 ios폴더의 socialcoin.xcworkspacedata 파일이나 socialcoin.pbxproj를 바로 열어도 된다. (vscode에서는 폴더로 나오지만 파인더에서는 파일로 나옴) 그리고 bundle id가 우리가 찾는 정보다.
+
+GoogleService-Info.plist 파일은 안드로이드 때와는 달리 XCode의 Add files to socialcoin으로 추가해 줘야 한다.
+
+https://rnfirebase.io/#3-ios-setup

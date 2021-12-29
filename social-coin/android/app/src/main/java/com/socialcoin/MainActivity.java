@@ -1,4 +1,4 @@
-package com.socialcoin;
+package com.rnmasterclass.socialcoin;
 
 import android.os.Build;
 import android.os.Bundle;
